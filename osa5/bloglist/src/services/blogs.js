@@ -16,7 +16,7 @@ const createNew = async object => {
   const config = {
     headers: { Authorization: token }
   }
-  const req = axios.post(baseUrl, object, config)
+  const req = await axios.post(baseUrl, object, config)
   return req.data
 }
 

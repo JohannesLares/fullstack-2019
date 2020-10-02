@@ -1,31 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const Newblog = ({
-  newBlog,
-  title,
-  setTitle,
-  author,
-  setAuthor,
-  url,
-  setUrl
-}) => {
+const Newblog = ({ newBlog }) => {
+
+  const [newTitle, setNewTitle] = useState('')
+  const [newAuthor, setNewAuthor] = useState('')
+  const [newUrl, setNewUrl] = useState('')
+
+  const addBlog = (event) => {
+    event.preventDefault()
+    newBlog({
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl
+    })
+    setNewTitle('')
+    setNewAuthor('')
+    setNewUrl('')
+  }
+
   return(
     <div>
       <h1>Create new</h1>
-      <form onSubmit={newBlog}>
+      <form onSubmit={addBlog}>
         <div>
                     Title
-          <input type="text" value={title}  name="title" onChange={({ target }) => setTitle(target.value)} />
+          <input type="text" value={newTitle} id="new-title" name="title" onChange={({ target }) => setNewTitle(target.value)} />
         </div>
         <div>
                     Author
-          <input type="text" value={author}  name="author" onChange={({ target }) => setAuthor(target.value)} />
+          <input type="text" value={newAuthor} id="new-author"  name="author" onChange={({ target }) => setNewAuthor(target.value)} />
         </div>
         <div>
                     URL
-          <input type="text" value={url}  name="url" onChange={({ target }) => setUrl(target.value)} />
+          <input type="text" value={newUrl} id="new-url"  name="url" onChange={({ target }) => setNewUrl(target.value)} />
         </div>
-        <button type="submit">Create</button>
+        <button id="new-blog-button" type="submit">Create</button>
       </form>
     </div>
   )

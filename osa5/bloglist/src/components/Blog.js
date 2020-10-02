@@ -7,8 +7,6 @@ const Blog = ({ blog, update, removeThisBlog }) => {
     setVisible(!visible)
   }
 
-
-
   const blogStyle = {
     paddingTop: 10,
     paddingBottom: 10,
@@ -24,7 +22,7 @@ const Blog = ({ blog, update, removeThisBlog }) => {
       user: blog.user.id,
       likes: blog.likes+1
     }
-    update(blogUpdate)
+    update(blogUpdate, blog.id)
   }
 
   const remove = async () => {
@@ -33,18 +31,19 @@ const Blog = ({ blog, update, removeThisBlog }) => {
   }
 
   return(
-    <div style={blogStyle}>
+    <div style={blogStyle} id={blog.title+blog.author}>
       <span onClick={visibility}>{blog.title}</span> {blog.author}
       {visible &&
         <div>
           {blog.url}<br />
-          {blog.likes}<button onClick={likeBlog}>Like</button><br />
+          <span className="likes">{blog.likes}</span><button className="like-button" onClick={likeBlog}>Like</button><br />
           added by {blog.user.name}<br />
           {blog.user.username === localStorage.getItem('username') &&
-            <button onClick={remove}>Remove</button>
+            <button id="remove-button" onClick={remove}>Remove</button>
           }
         </div>
       }
+      <button id="view-button" onClick={visibility}>{visible ? 'hide' : 'view'}</button>
     </div>
   )
 }

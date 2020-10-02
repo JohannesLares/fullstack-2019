@@ -31,13 +31,10 @@ blogsRouter.post('/', async (request, response) => {
       url: body.url
     })
     const result = await blog.save()
-    console.log(1)
     const user = await User.findById(decoded.id)
     user.blogs = user.blogs.concat(result._id)
-    console.log(1.5)
     await user.save()
     response.send({result})
-    console.log(2)
   } catch (e) {
     console.log(e)
   }
@@ -76,7 +73,7 @@ blogsRouter.post('/edit/:id', async (req, res) => {
     user: update.user
   }
   try{
-    const final = await Blog.findOneAndUpdate(req.params.id, updatedBlog, {new:true});
+    const final = await Blog.findOneAndUpdate({_id: req.params.id}, updatedBlog, {new:true});
     res.json(final.toJSON()).end()
   }catch{
     res.status(400).end();
