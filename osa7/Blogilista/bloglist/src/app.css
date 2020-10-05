@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', serif;
+}
+
+.top-nav {
+    padding: 15px;
+    margin: 0;
+    box-shadow: 0 5px 5px #aaa;
+    width: 100%;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.nav-element {
+    padding: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.nav-element:hover {
+    background-color: #f2f2f2;
+}
+
+.nav-element-right {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin-left: auto;
+    display: inline-block;
+}
+
+button {
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 4px #888;
+}
+
+.nav-element-right button {
+    background-color: red;
+    color: white;
+}
+
+.nav-element-right button:hover {
+    background-color: #8b0000;
+}
+
+.alert {
+    margin-left: 10px;
+    background-color: white;
+}
+
+.main {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.user-table {
+    width: 50%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.user-table tr {
+    height: 30px;
+}
+
+.user-table td, th {
+    border-bottom: 1px solid black;
+}
+
+#view-new-blog-button, #like-button, #login-button {
+    background-color: hotpink;
+    color: white;
+}
+
+#new-blog-button, #comment-button {
+    background-color: #4287f5;
+    color: white;
+    margin-top: 5px;
+}
+
+.blog {
+    padding: 10px;
+    border-bottom: 1px solid gray
+}
+
+.new-blog {
+    margin-bottom: 10px;
+}
+
+.form-field {
+    width: 400px;
+    margin: 10px;
+}
+
+.form-field label {
+    width: 33%;
+    display: inline-block;
+}
+
+.form-field input {
+    width: 63%;
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+
+#comment-input {
+    width: 300px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid grey;
+    margin-right: 5px;
+}
