@@ -1,6 +1,6 @@
-import patientData from '../data/patients.json';
+import patientData from '../data/patients';
 
-import { Patient, NonSensitivePatientData, newPatientEntry } from '../types';
+import { Patient, NonSensitivePatientData, newPatientEntry, newEntry, Entry } from '../types';
 
 import { v4 as uuid } from 'uuid';
 
@@ -11,8 +11,8 @@ const getEntries = (): Array<Patient> => {
 };
 
 const getNonSensitiveData = (): Array<NonSensitivePatientData> => {
-    return patients.map(({ id, name, dateOfBirth, gender, occupation }) => {
-        return { id, name, dateOfBirth, gender, occupation };
+    return patients.map(({ id, name, dateOfBirth, gender, occupation, entries }) => {
+        return { id, name, dateOfBirth, gender, occupation, entries };
     });
 };
 
@@ -26,8 +26,26 @@ const addEntry = ( entry: newPatientEntry ): Patient => {
         return newPatientEntry;
 };
 
+const addNewEntryToPatient = (entry: newEntry, id: string): Entry => {
+    const newEntryToP = {
+        id: uuid(),
+        ...entry
+    } as Entry;
+    let pushed: boolean = false
+    patientData.forEach(pat => {
+        if(pat.id === id) {
+            pat.entries.push(newEntryToP);
+            pushed = true;
+        }
+    })
+    if(pushed)
+        return newEntryToP;
+    throw new Error('invalid id: ' + id)
+}
+
 export default {
     getEntries,
     getNonSensitiveData,
-    addEntry
+    addEntry,
+    addNewEntryToPatient
 };

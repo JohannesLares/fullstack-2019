@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Gender, newPatientEntry } from './types';
+import { Gender, newPatientEntry, newEntry, HealthCheckRating } from './types';
 
-const toNewPatientEntry = (object: any): newPatientEntry => {
+export const toNewPatientEntry = (object: any): newPatientEntry => {
     return {
         name: parseString(object.name),
         dateOfBirth: parseString(object.dateOfBirth),
         ssn: parseString(object.ssn),
         occupation: parseString(object.occupation),
-        gender: parseGender(object.gender)
+        gender: parseGender(object.gender),
+        entries: []
     };
 };
 
@@ -34,4 +35,35 @@ const parseGender = (gender: any): Gender => {
     return gender;
 }
 
-export default toNewPatientEntry;
+const validateHealth = (hr: any): HealthCheckRating => {
+    if ((!hr && hr !== 0) || !Object.values(HealthCheckRating).includes(hr)) {
+        throw new Error('Inccorrect or missing field. ' + hr);
+    }
+    return hr;
+}
+
+const isCorrectType = (type: any): type is newEntry => {
+    parseString(type)
+    const types = ["OccupationalHealthcare", "Hospital", "HealthCheck"]
+    return types.includes(type)
+}
+
+const parseType = (type: any) => {
+    if(!type || !isCorrectType) {
+        throw new Error('Incorrect or missing field' + type)
+    }
+    if(type === "HealthCheck" || type === "OccupationalHealthcare" || type === "Hospital")
+        return type;
+    throw new Error('Incorrect or missing field: ' + type)
+}
+
+export const toNewEntry = (object: any): newEntry => {
+    if (object.type === "HealthCheck") validateHealth(object.healthCheckRating);
+    return {
+        ...object,
+        description: parseString(object.description),
+        date: parseString(object.date),
+        specialist: parseString(object.specialist),
+        type: parseType(object.type)
+    }
+}
